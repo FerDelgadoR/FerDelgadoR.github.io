@@ -1,89 +1,145 @@
-console.log("Hello world!");
+var slider;
+var button;
+var beep;
+var quack;
+var tun;
 
-var x = "name";
 
-var personName = "Cristian";
-var person_name = "Fer";
+function setup(){
+   createCanvas(600,450);
+   background(100);
 
-console.log(typeof x);
 
-console.log(3+6/9);
+   beep = createAudio('beep.mp3');
+   quack = createAudio('quack.mp3');
+   tun = createAudio('tun.mp3');
 
-var fullName = personName + " " + person_name;
 
-alert(fullName);
+   button = createButton('Play Beep');
+   button.position(250, 300);
+   button.mousePressed(playBeep);
 
-// Boolean
+   button = createButton('Pause Beep');
+   button.position(250, 320);
+   button.mousePressed(pauseBeep);
 
-var bool = false;
+   button = createButton('Stop Beep');
+   button.position(250, 340);
+   button.mousePressed(stopBeep);
 
-var test = 3>1;
+   button = createButton('Loop Beep');
+   button.position(250, 360);
+   button.mousePressed(loopBeep);
+   button = createButton('Previous track');
+   button.position(250, 380);
+   button.mousePressed(playTun);
 
-console.log(test);
 
-//Logic
-console.log(true && true);
-console.log(true && false);
-console.log(false && false);
+   button = createButton('Quack');
+   button.position(350, 300);
+   button.mousePressed(playQuack);
 
-console.log(true || true);
-console.log(true || false);
-console.log(false || false);
+   button = createButton('Pause Quack');
+   button.position(350, 320);
+   button.mousePressed(pauseQuack);
 
-// Control
+   button = createButton('Stop Quack');
+   button.position(350, 340);
+   button.mousePressed(stopQuack);
 
-if( 3<2){
-    console.log("if is true");
-} else {
-    console.log("if is false");
+   button = createButton('Loop Quack');
+   button.position(350, 360);
+   button.mousePressed(loopQuack);
+   button = createButton('Previous track');
+   button.position(350, 380);
+   button.mousePressed(playBeep);
+
+   button = createButton('Play Tun');
+   button.position(450, 300);
+   button.mousePressed(playTun);
+   button = createButton('Pause Tun');
+   button.position(450, 320);
+   button.mousePressed(playTun);
+
+   button = createButton('Stop Tun');
+   button.position(450, 340);
+   button.mousePressed(stopTun);
+
+   button = createButton('Loop Tun');
+   button.position(450, 360);
+   button.mousePressed(loopTun);
+   button = createButton('Previous track');
+   button.position(450, 380);
+   button.mousePressed(playQuack);
+   
+
+   amplitude = new p5.Amplitude();
 }
 
-var test = "a";
+function changeBG() {
+    var val = random(255);
+    background(val);
+  }
 
-switch(test){
-case "a":
-console.log("You choose a");
-break;
-case "b":
-console.log("You choose b");
-break;
-default:
-console.log("You choose another");
-}
+  // Play
 
-// Loop
+  function playBeep() {
+    var amplitude = new p5.Amplitude();
+      beep.play();
 
-var c = 1;
-
-while(c < 10){
-    console.log("while "+c);
-    c++;
-}
-
-var c =1;
-
-do {
-    console.log("first")
-} while (false);
+      function draw() {
+        background(0);
+        fill(255);
+        var level = amplitude.getLevel();
+        var size = map(level, 0, 1, 0, 200);
+        ellipse(width/2, height/2, size, size);
+      }
+    }
 
 
-for (var i=0; i<10 ; i+=2){
-    console.log("for "+i);
-}
+
+    function playQuack() {
+    var amplitude = new p5.Amplitude();
+        quack.play();
+      }
+      function playTun() {
+      var amplitude = new p5.Amplitude();
+        tun.play();
+      }
 
 
-// functions
+  // Pause
+  function pauseBeep() {
+    beep.pause();
+  }
+  function pauseQuack() {
+    quack.pause();
+  }
+  function pauseTun() {
+    tun.pause();
+  }
 
-function sum(a,b){
-    var result = a+b;
-    return result;
-}
 
-console.log(sum(5,6));
+    // Loop
+    function loopBeep() {
+        beep.loop();
+      }
+      function loopQuack() {
+        quack.loop();
+      }
+      function loopTun() {
+        tun.loop();
+      }
 
-var subs = function(a,b){
-    return a-b;
-}
 
-console.log(subs(5,6));
+     // Stop
+     function stopBeep() {
+        beep.stop();
+      }
+      function stopQuack() {
+        quack.stop();
+      }
+      function stopTun() {
+        tun.stop();
+      }
 
